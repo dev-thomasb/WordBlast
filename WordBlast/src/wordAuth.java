@@ -6,22 +6,27 @@ import java.util.HashSet;
 public class wordAuth {
     private static HashSet<String> validWords = new HashSet<>();
 
+    //Checks if the word is valid by checking if HashSet contains the word
     public static boolean isWordValid(String word) {
-        // Create a hashset of valid words that is based off
-        // the words in words.txt
         if (validWords.isEmpty()) {
-            try (BufferedReader br = new BufferedReader(new FileReader("src/validwords.txt"))) {
+            generateValidWords();
+        }
+        return validWords.contains(word);
+    }
+
+    //Generates the HashSet of valid words from the words.txt file
+    public static void generateValidWords() {
+        validWords.clear();
+        try (BufferedReader br = new BufferedReader(new FileReader("src/validwords.txt"))) {
             String line;
             //while line is not blank
             while ((line = br.readLine()) != null) {
                 validWords.add(line.trim());
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        }
-        
-        return validWords.contains(word);
     }
     public static void removeWord(String word) {
         validWords.remove(word);
