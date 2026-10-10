@@ -1,23 +1,30 @@
 import java.util.*;
 
 public class inputManager {
-    private static int numPlayers;
-    private static String word;
+    private int numPlayers;
+    private String name;
+    private String word;
     private static Scanner scanner = new Scanner(System.in);
-    public boolean players() {
+    public int players() {
         System.out.println("How many players?");
         numPlayers = scanner.nextInt();
-        getPlayers();
-        return(true);
+        return getPlayers();
     }
-    public boolean gameInput() {
+    public String playerName() {
+        System.out.println("Input player name:");
+        name = scanner.nextLine();
+        return getName();
+    }
+    public String gameInput() {
         System.out.println("Quick, input your word!!!");
         word = scanner.nextLine();
-        getWord();
-        return(true);
+        return getWord();
     }
     public int getPlayers() {
         return numPlayers;
+    }
+    public String getName() {
+        return name;
     }
     public String getWord() {
         return word;
