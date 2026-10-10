@@ -2,7 +2,6 @@ import java.util.*;
 
 public class inputManager {
     private int numPlayers;
-    private String name;
     private String word;
     private static Scanner scanner = new Scanner(System.in);
     public int players() {
@@ -12,8 +11,7 @@ public class inputManager {
     }
     public String playerName() {
         System.out.println("Input player name:");
-        name = scanner.nextLine();
-        return getName();
+        return scanner.nextLine();
     }
     public String gameInput() {
         System.out.println("Quick, input your word!!!");
@@ -22,9 +20,6 @@ public class inputManager {
     }
     public int getPlayers() {
         return numPlayers;
-    }
-    public String getName() {
-        return name;
     }
     public String getWord() {
         return word;
