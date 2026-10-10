@@ -1,19 +1,17 @@
-import java.util.*;
-
-public class Player{
 
 
+public class Player {
+    private int playerNum;
 
-    private int playerScore;
-    private String playerName;
-
-    
-
-    public Player(){
-
-        playerName = inputManager.playerName();
-        playerScore = 0;
-        
+    public Player() { // Construct with nothing, every player starts at 0.
+        playerNum = 0;
     }
-    
+
+    public int getPlayerNum() {
+        return playerNum;
+    }
+
+    public void setPlayerNum(int playerNum) {
+        this.playerNum = playerNum;
+    }
 }
