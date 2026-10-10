@@ -1,8 +1,17 @@
-public class Player{
+
+
+public class Player {
     private int playerNum;
-    private int null;
 
-    public Player(player ){
+    public Player() { // Construct with nothing, every player starts at 0.
+        playerNum = 0;
+    }
 
+    public int getPlayerNum() {
+        return playerNum;
+    }
+
+    public void setPlayerNum(int playerNum) {
+        this.playerNum = playerNum;
     }
 }
