@@ -4,8 +4,11 @@ public class scoreMaker{
 
     public int CalculateScore(String word){
         int score = 0;
-        for(char c : word.toCharArray()){
-            score += CharacterScore(word.charAt(c));
+        //for(char c : word.toCharArray()){
+        //    score += CharacterScore(c);
+        //}
+        for(int i = 0; i < word.length(); i++){
+            score += CharacterScore(word.charAt(i));
         }
         return score;
     }
