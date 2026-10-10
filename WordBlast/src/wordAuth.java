@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 public class wordAuth {
     private static HashSet<String> validWords = new HashSet<>();
-    
+
     public static boolean isWordValid(String word) {
         // Create a hashset of valid words that is based off
         // the words in words.txt
@@ -22,6 +22,9 @@ public class wordAuth {
         }
         
         return validWords.contains(word);
+    }
+    public static void removeWord(String word) {
+        validWords.remove(word);
     }
 
 }
