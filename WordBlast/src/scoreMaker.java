@@ -1,3 +1,5 @@
+
+
 public class scoreMaker{
 
     public int CalculateScore(String word){
