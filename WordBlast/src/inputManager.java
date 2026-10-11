@@ -24,6 +24,7 @@ public class inputManager {
     public String gameInput() {
         System.out.println("Quick, input your word!!!");
         word = scanner.nextLine();
+        word = word.toLowerCase();
         return getWord();
     }
     public int getPlayers() {
