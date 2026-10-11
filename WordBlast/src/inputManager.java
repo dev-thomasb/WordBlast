@@ -14,6 +14,7 @@ public class inputManager {
     public int players() {
         System.out.println("How many players?");
         numPlayers = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline left after the number.
         return getPlayers();
     }
     public String playerName() {
