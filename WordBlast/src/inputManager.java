@@ -1,9 +1,16 @@
 import java.util.*;
 
 public class inputManager {
+
     private int numPlayers;
     private String word;
     private static Scanner scanner = new Scanner(System.in);
+
+    public inputManager(){
+
+    }
+
+    
     public int players() {
         System.out.println("How many players?");
         numPlayers = scanner.nextInt();
