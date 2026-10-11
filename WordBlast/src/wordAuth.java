@@ -70,4 +70,9 @@ public class wordAuth {
         int randomIndex = ThreadLocalRandom.current().nextInt(wordList.size());
         return wordList.get(randomIndex);
     }
+
+    static ArrayList<String> getRemainingWords() {
+        ensureLoaded();
+        return new ArrayList<>(wordList);
+    }
 }
