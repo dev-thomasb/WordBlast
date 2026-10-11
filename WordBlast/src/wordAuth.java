@@ -1,52 +1,73 @@
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class wordAuth {
-    //validWords used to check if word is valid, wordList used to get random word
-    private static HashSet<String> validWords = new HashSet<>();
-    private static ArrayList<String> wordList = new ArrayList<>();
+    private static final HashSet<String> validWords = new HashSet<>();
+    private static final ArrayList<String> wordList = new ArrayList<>();
+    private static boolean loaded;
 
-    //Checks if the word is valid by checking if HashSet contains the word
     public static boolean isWordValid(String word) {
-        if (validWords.isEmpty()) {
-            generateValidWords();
-        }
-        return validWords.contains(word);
+        ensureLoaded();
+        return word != null && validWords.contains(word);
     }
 
-    //Generates the HashSet of valid words from the words.txt file
+    private static void ensureLoaded() {
+        if (!loaded) {
+            generateValidWords();
+        }
+    }
+
     public static void generateValidWords() {
         validWords.clear();
         wordList.clear();
-        try (BufferedReader br = new BufferedReader(new FileReader("src/validwords.txt"))) {
-            String line;
-            //while line is not blank
-            while ((line = br.readLine()) != null) {
-                validWords.add(line.trim());
-                wordList.add(line.trim());
+        loaded = false;
+        InputStream dictionary = wordAuth.class.getResourceAsStream("/validwords.txt");
+        try {
+            if (dictionary == null) {
+                Path path = Path.of("src/validwords.txt");
+                if (!Files.exists(path)) {
+                    path = Path.of("WordBlast/src/validwords.txt");
+                }
+                dictionary = Files.newInputStream(path);
             }
-
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(dictionary, StandardCharsets.UTF_8))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String entry = line.trim();
+                    if (!entry.isEmpty() && validWords.add(entry)) {
+                        wordList.add(entry);
+                    }
+                }
+            }
+            loaded = true;
         } catch (IOException e) {
-            e.printStackTrace();
+            validWords.clear();
+            wordList.clear();
+            throw new IllegalStateException("Unable to load validwords.txt.", e);
         }
     }
+
     public static void removeWord(String word) {
+        ensureLoaded();
         validWords.remove(word);
         wordList.remove(word);
     }
 
     public static String getRandomWord() {
+        ensureLoaded();
         if (wordList.isEmpty()) {
-            return null; // No words remain
+            return null;
         }
-        //Generates a random value based off wordList size
         int randomIndex = ThreadLocalRandom.current().nextInt(wordList.size());
-        
         return wordList.get(randomIndex);
     }
-
 }
